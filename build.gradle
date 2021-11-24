@@ -14,10 +14,17 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-apply plugin: 'java'
+plugins {
+    id 'java-library'
+    id 'signing'
+    id 'maven-publish'
+    id('io.github.gradle-nexus.publish-plugin') version '1.1.0'
+}
 
 group = 'io.github.open-source-release-demo'
 version = '0.1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
@@ -35,3 +42,46 @@ test {
     }
 }
 
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
+nexusPublishing {
+    repositories {
+        sonatype {  //only for users registered in Sonatype after 24 Feb 2021
+            nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
+            snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
+        }
+    }
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from(components.java)
+            pom {
+                name = 'publish-java'
+                description = 'Demo of how to publish a Java Gradle based project to Maven Central'
+                url = 'https://github.com/open-source-release-demo/publish-java'
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'pjfanning'
+                        name = 'PJ Fanning'
+                    }
+                }
+                scm {
+                    url = 'https://github.com/open-source-release-demo/publish-java'
+                    connection = 'scm:git://github.com/open-source-release-demo/publish-java.git'
+                    developerConnection = 'scm:git://github.com/open-source-release-demo/publish-java.git'
+                }
+            }
+        }
+    }
+}
