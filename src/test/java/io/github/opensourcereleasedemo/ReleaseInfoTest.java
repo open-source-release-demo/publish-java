@@ -16,8 +16,14 @@ limitations under the License.
 
 package io.github.opensourcereleasedemo;
 
-public class Functions {
-    public static String getDescription() {
-        return Functions.class.getPackage().getName() + " Release Demo Library";
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+public class ReleaseInfoTest {
+    @Test
+    void testGetVersion() {
+        String version = ReleaseInfo.getVersion();
+        assertTrue(ReleaseInfo.getVersion().startsWith("GroupId:"), "version has right prefix? " + version);
     }
 }
