@@ -44,7 +44,7 @@ task generateVersionTxt()  {
         outputFile.text = """GroupId: ${project.group}
 Name: ${project.name}
 Version: $version
-Build-time: ${java.time.ZonedDateTime.now()}
+Build-time: ${java.time.LocalDateTime.now()}
 """
     }
 }
