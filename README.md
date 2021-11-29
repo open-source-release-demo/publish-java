@@ -1,5 +1,5 @@
 # publish-java
-Demo of how to get Github Actions to publish a Java Gradle based project to Maven Central.
+Demo of how to publish a Java Gradle based project to Maven Central.
 
 This project is documented in a [Medium article](https://medium.com/@pjfanning/publishing-your-first-open-source-library-with-gradle-50bd0b1cd3af).
 
